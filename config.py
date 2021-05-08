@@ -9,7 +9,7 @@ EPOCH = 20
 RECORD_EPOCH = 5
 LR = 0.0001
 NET = '11'
-ONE_HOT = True
+ONE_HOT = False
 
 # Dataset path for myself
 if sys.platform.startswith('win'):
