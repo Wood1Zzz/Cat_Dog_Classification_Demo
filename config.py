@@ -8,7 +8,7 @@ DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
 EPOCH = 20
 RECORD_EPOCH = 5
 LR = 0.0001
-NET = '11'
+NET = '16'
 ONE_HOT = False
 
 # Dataset path for myself
