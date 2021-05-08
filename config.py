@@ -23,8 +23,8 @@ if DEVICE == "my":
         VALID_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition/test'
         DATASET_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition'
 elif DEVICE == "kaggle":
-    TRAIN_PATH = './cat_dog_classification/train'
-    VALID_PATH = './cat_dog_classification/test'
-    DATASET_PATH = './cat_dog_classification'
+    TRAIN_PATH = '../input/dogs-vs-cats/train'
+    VALID_PATH = '../input/dogs-vs-cats/test'
+    DATASET_PATH = '../input/dogs-vs-cats'
 elif DEVICE == "colab":
     pass
