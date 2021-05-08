@@ -53,7 +53,7 @@ def train():
     # valid_dataset = dataloader.ValidDataset(VALID_PATH)
     # valid_loader = DataLoader(valid_dataset, batch_size=1, shuffle=False, num_workers=0)
 
-    print("Net: VGG%s, Total epoch: %d, BATCH_SIZE: %d"%(NET, EPOCH, BATCH_SIZE))
+    print("Net: VGG%s, Total epoch: %d, BATCH_SIZE: %d, LR: %d"%(NET, EPOCH, BATCH_SIZE, LR))
     time.sleep(0.1)
 
     for epoch in range(EPOCH):
