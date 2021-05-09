@@ -32,5 +32,14 @@ elif DEVICE == "colab":
     os.system(r'mkdir -p ~/.kaggle')
     os.system(r'echo \{\"username\":\"danzerwoo\",\"key\":\"981fd67ae5b453be25eb7bc9d844a52b\"}\ > ~/.kaggle/kaggle.json')
     os.system(r'chmod 600 ~/.kaggle/kaggle.json')
-    os.system(r'kaggle datasets download -d biaiscience/dogs-vs-cats')
-    print('finish')
+
+    if not os.path.exists('/content/cat_dog_dataset'):
+        os.system(r'kaggle datasets download -d biaiscience/dogs-vs-cats -p /content')
+        os.system(r'unzip /content/dogs-vs-cats.zip -d /content/cat_dog_dataset')
+        os.system(r'mv /content/cat_dog_dataset/train/train/* /content/cat_dog_dataset/train')
+        os.system(r'rm -rf /content/cat_dog_dataset/train/train')
+        os.system(r'mv /content/cat_dog_dataset/test/test/* /content/cat_dog_dataset/test')
+        os.system(r'rm -rf /content/cat_dog_dataset/test/test')
+        print("Download and unzip finish!\n")
+    else:
+        print('do nothing finished\n')
