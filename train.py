@@ -8,11 +8,15 @@ import time
 from tqdm import tqdm
 # import sys
 from config import *
+import os
+
 
 # cat_dog_dataset = dataloader.CatVsDogDataset(TRAIN_PATH)
 # dataloader = Data(cat_dog_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
 
-net = VGG(NET).cuda()
+
+
+net = VGG(NET)
 params = net.parameters()
 
 if ONE_HOT:
