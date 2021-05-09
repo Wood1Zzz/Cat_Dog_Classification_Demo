@@ -1,7 +1,7 @@
 import sys
 
 # Config
-BATCH_SIZE = 50
+BATCH_SIZE = 30
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
@@ -10,7 +10,7 @@ RECORD_EPOCH = 5
 LR = 0.0001
 NET = '16'
 ONE_HOT = False
-DEVICE = "kaggle"
+DEVICE = "my"
 
 # Dataset path for myself
 if DEVICE == "my":
