@@ -68,10 +68,17 @@ class CatVsDogDataset(Dataset):
         elif self.mode == "test":
             data = Transform_test(img)
         img.close()
-        if self.one_hot:
-            return data.cuda(), torch.LongTensor([self.labels[index]]).cuda()
+        
+        if torch.cuda.is_available():
+            if self.one_hot:
+                return data.cuda(), torch.LongTensor([self.labels[index]]).cuda()
+            else:
+                return data.cuda(), torch.FloatTensor([self.labels[index]]).cuda()
         else:
-            return data.cuda(), torch.FloatTensor([self.labels[index]]).cuda()
+            if self.one_hot:
+                return data, torch.LongTensor([self.labels[index]])
+            else:
+                return data, torch.FloatTensor([self.labels[index]])
 
     def __len__(self):
         return len(self.file_name)

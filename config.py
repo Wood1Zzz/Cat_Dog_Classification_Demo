@@ -2,7 +2,7 @@ import sys
 import os
 
 # Config
-BATCH_SIZE = 30
+BATCH_SIZE = 4
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
@@ -43,3 +43,6 @@ elif DEVICE == "colab":
         print("Download and unzip finish!\n")
     else:
         print('do nothing finished\n')
+    TRAIN_PATH = '/content/cat_dog_dataset/train'
+    VALID_PATH = '/content/cat_dog_dataset/test'
+    DATASET_PATH = '/content/cat_dog_dataset'

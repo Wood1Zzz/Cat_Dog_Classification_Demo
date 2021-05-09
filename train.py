@@ -15,8 +15,10 @@ import os
 # dataloader = Data(cat_dog_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
 
 
-
-net = VGG(NET)
+if torch.cuda.is_available():
+    net = VGG(NET).cuda()
+else:
+    net = VGG(NET)
 params = net.parameters()
 
 if ONE_HOT:
