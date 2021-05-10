@@ -6,14 +6,14 @@ BATCH_SIZE = 10
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
-EPOCH = 20
+EPOCH = 25
 RECORD_EPOCH = 5
 LR = 0.0001
-NET = '16'
+NET = '19'
 ONE_HOT = False
 
 # DEVICE CONFIG "my", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "my"
+DEVICE = "colab"
 
 # Special config or dataset path for different device
 if DEVICE == "my":
@@ -51,4 +51,4 @@ elif DEVICE == "colab":
     TRAIN_PATH = '/content/cat_dog_dataset/train'
     VALID_PATH = '/content/cat_dog_dataset/test'
     DATASET_PATH = '/content/cat_dog_dataset'
-    BATCH_SIZE = 100
+    BATCH_SIZE = 80

@@ -2,3 +2,7 @@ __pycache__
 .idea
 dogs-vs-cats.zip
 cat_dog_dataset
+config.pyc 
+dataloader.pyc 
+net.pyc
+utils.pyc 
