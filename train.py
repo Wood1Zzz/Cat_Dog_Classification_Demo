@@ -104,8 +104,9 @@ def train():
             # print(train_acc_sum)
             # train_loss_sum += float(loss_func(y_hat, y))
 
-        print('epoch: {epoch}, loss:{loss:%.6f}, accuracy:{accuracy:%.6f}, average_loss:{average_loss:%.6f}, average_accuracy:{average_accuracy:%.6f}%'.\
-            format(epoch=epoch, loss=train_loss_sum, accuracy=train_acc_sum, average_loss=float(train_loss_sum/batch+1), average_accuracy=float(train_acc_sum/batch+1)))
-
+        print('epoch: {epoch}, loss:{loss}, accuracy:{accuracy}, average_loss:{average_loss}, average_accuracy:{average_accuracy}%'.\
+            format(epoch=epoch, loss=float('%.6f' % train_loss_sum), accuracy=float('%.6f' % train_acc_sum), \
+                average_loss=float('%.6f' % train_loss_sum/(batch+1)), \
+                    average_accuracy=float('%.6f' % train_acc_sum/(batch+1))))
 
 train()
