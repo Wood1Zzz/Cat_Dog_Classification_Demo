@@ -19,6 +19,7 @@ if torch.cuda.is_available():
     net = VGG(NET).cuda()
 else:
     net = VGG(NET)
+
 params = net.parameters()
 
 if ONE_HOT:
@@ -59,7 +60,7 @@ def train():
     # valid_dataset = dataloader.ValidDataset(VALID_PATH)
     # valid_loader = DataLoader(valid_dataset, batch_size=1, shuffle=False, num_workers=0)
 
-    print("Net: VGG%s, Total epoch: %d, BATCH_SIZE: %d, LR: %d"%(NET, EPOCH, BATCH_SIZE, LR))
+    print("Net: VGG%s, Total epoch: %d, BATCH_SIZE: %d, LR: %f"%(NET, EPOCH, BATCH_SIZE, LR))
     time.sleep(0.1)
 
     for epoch in range(EPOCH):
@@ -73,6 +74,8 @@ def train():
             # if batch_size > 1, use sum() to calculate per batch loss
             loss = loss_func(y_hat, y)
 
+            print("\t\tBatch #{0}/{1}".format(batch+1, len(train_loader)) + "Loss = %.6f"%float(loss))
+
             if optimizer is not None:
                 optimizer.zero_grad()
             elif params is not None and params[0].grad is not None:
@@ -82,18 +85,21 @@ def train():
             loss.backward()
             if optimizer is None:
                 optimizer = optim.SGD(net.parameters(), lr=globals(LR))
+                optimizer.step()
             else:
                 optimizer.step()
 
             # convert tensor data type to float data type
             # train_loss_sum += loss.item()
             # train_acc_sum += (y_hat == y).sum().item()
+
             if ONE_HOT:
                 train_loss_sum += loss_func(y_hat, y).sum().item()
                 train_acc_sum += (y_hat.argmax(dim=1) == y).sum().item()
             else:
-                train_loss_sum += loss_func(y_hat, y).item()
+                train_loss_sum += loss.item()
                 train_acc_sum += (torch.round(y_hat) == y).float().mean().item()
+
             # print(train_loss_sum)
             # print(train_acc_sum)
             # train_loss_sum += float(loss_func(y_hat, y))
