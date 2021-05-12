@@ -6,14 +6,10 @@ import dataloader
 from net import VGG
 import time
 from tqdm import tqdm
-# import sys
 from config import *
 import os
 from utils import evaluate_accuracy, second2clock
 
-
-# cat_dog_dataset = dataloader.CatVsDogDataset(TRAIN_PATH)
-# dataloader = Data(cat_dog_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
 
 
 if torch.cuda.is_available():
@@ -30,42 +26,37 @@ else:
     loss_func = nn.BCELoss()
     optimizer = optim.RMSprop(net.parameters(), lr=LR, alpha=0.9)
 
-def train():
-    global TRAIN_PATH
-    global EPOCH
-    global BATCH_SIZE
-    global DATASET_PATH
-    global ONE_HOT
+def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
 
-    if ONE_HOT:
+    if one_hot:
         loss_func = nn.CrossEntropyLoss()
         optimizer = optim.SGD(net.parameters(), lr=LR)
     else:
         loss_func = nn.BCELoss()
         optimizer = optim.RMSprop(net.parameters(), lr=LR, alpha=0.9)
 
-    if DATASET_PATH is not None:
+    if dataset_path is not None:
         if sys.platform.startswith('win'):
-            TRAIN_PATH = DATASET_PATH + '\\train'
-            TEST_PATH = DATASET_PATH + '\\test'
+            TRAIN_PATH = dataset_path + '\\train'
+            TEST_PATH = dataset_path + '\\test'
         elif sys.platform.startswith('linux'):
-            TRAIN_PATH = DATASET_PATH + '/train'
-            TEST_PATH = DATASET_PATH + '/test'
+            TRAIN_PATH = dataset_path + '/train'
+            TEST_PATH = dataset_path + '/test'
     else:
         raise ValueError("Dataset can not be None")
 
-    cat_dog_dataset = dataloader.CatVsDogDataset(TRAIN_PATH, mode="train", one_hot=ONE_HOT)
-    train_loader = Data(cat_dog_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
+    cat_dog_dataset = dataloader.CatVsDogDataset(TRAIN_PATH, mode="train", one_hot=one_hot)
+    train_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     cat_dog_dataset_test = dataloader.CatVsDogDataset(TRAIN_PATH, mode="test")
-    test_loader = Data(cat_dog_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
+    test_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     # valid_dataset = dataloader.ValidDataset(VALID_PATH)
     # valid_loader = DataLoader(valid_dataset, batch_size=1, shuffle=False, num_workers=0)
     start_time = time.time()
-    print("Net: VGG%s, Total epoch: %d, BATCH_SIZE: %d, LR: %f"%(NET, EPOCH, BATCH_SIZE, LR))
+    print("Net: VGG%s, Total epoch: %d, batch_size: %d, LR: %f"%(NET, epoch, batch_size, LR))
     time.sleep(0.1)
 
-    for epoch in range(EPOCH):
-        print("Epoch:%d"%(epoch + 1))
+    for epoch in range(epoch):
+        print("\nEpoch:%d"%(epoch + 1))
         time.sleep(0.1)
 
         train_loss_sum, train_acc_sum, n = 0.0, 0.0, 0
@@ -94,7 +85,7 @@ def train():
             # train_loss_sum += loss.item()
             # train_acc_sum += (y_hat == y).sum().item()
 
-            if ONE_HOT:
+            if one_hot:
                 train_loss_sum += loss_func(y_hat, y).sum().item()
                 train_acc_sum += (y_hat.argmax(dim=1) == y).sum().item()
             else:
@@ -112,7 +103,7 @@ def train():
         
         if (epoch+1) % RECORD_EPOCH == 0:
             valid_acc = evaluate_accuracy(test_loader, net)
-            print('Epoch: {epoch}, Valid accuracy: {:.6f}%'.format(epoch=epoch+1, valid_acc*100))
+            print('Epoch: {epoch}, Valid accuracy: {valid:.6f}%'.format(epoch=epoch+1, valid=valid_acc*100))
 
     end_time = time.time()
     h, m, s = second2clock(end_time - start_time)
@@ -123,4 +114,4 @@ def train():
     h, m, s = second2clock(end_time - start_time)
     print("Valid accuracy: {:.6f}".format(valid_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
 
-train()
+train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)

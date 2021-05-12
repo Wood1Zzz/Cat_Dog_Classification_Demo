@@ -18,13 +18,13 @@ DEVICE = "my"
 # Special config or dataset path for different device
 if DEVICE == "my":
     if sys.platform.startswith('win'):
-        TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
-        VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
+        # TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
+        # VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
         DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
         BATCH_SIZE = 50
     elif sys.platform.startswith('linux'):
-        TRAIN_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition/train'
-        VALID_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition/test'
+        # TRAIN_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition/train'
+        # VALID_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition/test'
         DATASET_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition'
         BATCH_SIZE = 50
 elif DEVICE == "kaggle":
