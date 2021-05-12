@@ -9,11 +9,11 @@ DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
 EPOCH = 25
 RECORD_EPOCH = 5
 LR = 0.0001
-NET = '19'
+NET = '11'
 ONE_HOT = False
 
 # DEVICE CONFIG "my", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "colab"
+DEVICE = "my"
 
 # Special config or dataset path for different device
 if DEVICE == "my":

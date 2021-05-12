@@ -74,7 +74,7 @@ def train():
             # if batch_size > 1, use sum() to calculate per batch loss
             loss = loss_func(y_hat, y)
 
-            print("\t\tBatch #{0}/{1}".format(batch+1, len(train_loader)) + "Loss = %.6f"%float(loss))
+            # print("\t\tBatch #{0}/{1}".format(batch+1, len(train_loader)) + "Loss = %.6f"%float(loss))
 
             if optimizer is not None:
                 optimizer.zero_grad()
@@ -106,7 +106,7 @@ def train():
 
         print('epoch: {epoch}, loss:{loss}, accuracy:{accuracy}, average_loss:{average_loss}, average_accuracy:{average_accuracy}%'.\
             format(epoch=epoch, loss=float('%.6f' % train_loss_sum), accuracy=float('%.6f' % train_acc_sum), \
-                average_loss=float('%.6f' % train_loss_sum/(batch+1)), \
-                    average_accuracy=float('%.6f' % train_acc_sum/(batch+1))))
+                average_loss=float('%.6f' %(train_loss_sum/(batch+1))), \
+                    average_accuracy=float('%.6f' % (train_acc_sum/(batch+1)*100))))
 
 train()
