@@ -55,7 +55,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     time.sleep(0.1)
 
     for epoch in range(epoch):
-        print("\nEpoch:%d"%(epoch + 1))
+        print("\nEpoch: %d"%(epoch + 1))
         time.sleep(0.1)
 
         train_loss_sum, train_acc_sum, n = 0.0, 0.0, 0

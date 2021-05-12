@@ -6,14 +6,14 @@ BATCH_SIZE = 10
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
-EPOCH = 25
+EPOCH = 5
 RECORD_EPOCH = 5
 LR = 0.0001
 NET = '11'
 ONE_HOT = False
 
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "colab"
+DEVICE = "my_device"
 
 # Special config or dataset path for different device
 if DEVICE == "my_device":
@@ -35,7 +35,7 @@ elif DEVICE == "kaggle":
 elif DEVICE == "colab":
     os.system(r'pip install -U -q kaggle')
     os.system(r'mkdir -p ~/.kaggle')
-    os.system(r'echo \{\"username\":\"woodzzz\",\"key\":\"0ebbc1f4862b43cd57cf939fec48aac3\"}\ > ~/.kaggle/kaggle.json')
+    os.system(r'echo \{\"username\":\"user\",\"key\":\"your token key\"}\ > ~/.kaggle/kaggle.json')
     os.system(r'chmod 600 ~/.kaggle/kaggle.json')
 
     if not os.path.exists('/content/cat_dog_dataset'):
