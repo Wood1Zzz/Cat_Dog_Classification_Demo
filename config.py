@@ -35,7 +35,7 @@ elif DEVICE == "kaggle":
 elif DEVICE == "colab":
     os.system(r'pip install -U -q kaggle')
     os.system(r'mkdir -p ~/.kaggle')
-    os.system(r'echo \{\"username\":\"danzerwoo\",\"key\":\"981fd67ae5b453be25eb7bc9d844a52b\"}\ > ~/.kaggle/kaggle.json')
+    os.system(r'echo \{\"username\":\"woodzzz\",\"key\":\"0ebbc1f4862b43cd57cf939fec48aac3\"}\ > ~/.kaggle/kaggle.json')
     os.system(r'chmod 600 ~/.kaggle/kaggle.json')
 
     if not os.path.exists('/content/cat_dog_dataset'):
