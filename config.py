@@ -12,11 +12,11 @@ LR = 0.0001
 NET = '11'
 ONE_HOT = False
 
-# DEVICE CONFIG "my", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "my"
+# DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
+DEVICE = "colab"
 
 # Special config or dataset path for different device
-if DEVICE == "my":
+if DEVICE == "my_device":
     if sys.platform.startswith('win'):
         # TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
         # VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'

@@ -49,8 +49,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     train_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
     cat_dog_dataset_test = dataloader.CatVsDogDataset(TRAIN_PATH, mode="test")
     test_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-    # valid_dataset = dataloader.ValidDataset(VALID_PATH)
-    # valid_loader = DataLoader(valid_dataset, batch_size=1, shuffle=False, num_workers=0)
+
     start_time = time.time()
     print("Net: VGG%s, Total epoch: %d, batch_size: %d, LR: %f"%(NET, epoch, batch_size, LR))
     time.sleep(0.1)
