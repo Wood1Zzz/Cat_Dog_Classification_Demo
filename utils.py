@@ -19,3 +19,8 @@ def evaluate_accuracy(test_iter, net):
         acc_sum += (torch.round(net(x)) == y).float().sum().item()
         n += y.shape[0]
     return acc_sum / n
+
+def second2clock(second):
+    m, s = divmod(second, 60)
+    h, m = divmod(m, 60)
+    return h, m, s

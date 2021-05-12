@@ -9,7 +9,7 @@ from tqdm import tqdm
 # import sys
 from config import *
 import os
-from utils import evaluate_accuracy
+from utils import evaluate_accuracy, second2clock
 
 
 # cat_dog_dataset = dataloader.CatVsDogDataset(TRAIN_PATH)
@@ -109,11 +109,18 @@ def train():
             format(epoch=epoch+1, loss=float('%.6f' % train_loss_sum), accuracy=float('%.6f' % train_acc_sum), \
                 average_loss=float('%.6f' %(train_loss_sum/(batch+1))), \
                     average_accuracy=float('%.6f' % (train_acc_sum/(batch+1)*100))))
+        
+        if (epoch+1) % RECORD_EPOCH == 0:
+            valid_acc = evaluate_accuracy(test_loader, net)
+            print('Epoch: {epoch}, Valid accuracy: {:.6f}%'.format(epoch=epoch+1, valid_acc*100))
+
     end_time = time.time()
-    print("Total trainning time:{:.2f}s".format(end_time-start_time))
+    h, m, s = second2clock(end_time - start_time)
+    print("Total trainning time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
     start_time = time.time()
     valid_acc = evaluate_accuracy(test_loader, net)
     end_time = time.time()
-    print("Valid accuracy {:.6f}%, Eval time {:.2f}s".format(valid_acc*100, end_time-start_time))
+    h, m, s = second2clock(end_time - start_time)
+    print("Valid accuracy: {:.6f}".format(valid_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
 
 train()
