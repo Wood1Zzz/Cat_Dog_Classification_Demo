@@ -34,20 +34,22 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
         loss_func = nn.BCELoss()
         optimizer = optim.RMSprop(net.parameters(), lr=LR, alpha=0.9)
 
-    if dataset_path is not None:
+    if dataset_path is not None and DEVICE is not "kaggle":
         if sys.platform.startswith('win'):
             TRAIN_PATH = dataset_path + '\\train'
-            TEST_PATH = dataset_path + '\\test'
+            VALID_PATH = dataset_path + '\\test'
         elif sys.platform.startswith('linux'):
             TRAIN_PATH = dataset_path + '/train'
-            TEST_PATH = dataset_path + '/test'
+            VALID_PATH = dataset_path + '/test'
+    elif DEVICE is "kaggle":
+        pass
     else:
         raise ValueError("Dataset can not be None")
 
     cat_dog_dataset = dataloader.CatVsDogDataset(TRAIN_PATH, mode="train", one_hot=one_hot)
     train_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-    cat_dog_dataset_test = dataloader.CatVsDogDataset(TRAIN_PATH, mode="test")
-    test_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    cat_dog_dataset_test = dataloader.CatVsDogDataset(TRAIN_PATH, mode="test", one_hot=one_hot)
+    test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True, num_workers=0)
 
     start_time = time.time()
     print("Net: VGG%s, Total epoch: %d, batch_size: %d, LR: %f"%(NET, epoch, batch_size, LR))
