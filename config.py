@@ -11,10 +11,10 @@ RECORD_EPOCH = 5
 LR = 0.0001
 NET = '11'
 ONE_HOT = False
-SHOW_PIC_NUM = 36
+SHOW_PIC_NUM = 10
 
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "my_device"
+DEVICE = "colab"
 
 # Special config or dataset path for different device
 if DEVICE == "my_device":

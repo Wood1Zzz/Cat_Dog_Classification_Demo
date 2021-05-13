@@ -39,7 +39,7 @@ def rgb2gray(img):
 def show_result(net, x, y, num=10):
     true_labels = get_labels(y.cpu().detach().numpy())
     predict_labels = get_labels(torch.round(net(x)).cpu().detach().numpy())
-    titles = [true + '\n' + pred for true, pred in zip(true_labels, predict_labels)]
+    titles = ["label: " + true + '\n' + "predict: " + pred for true, pred in zip(true_labels, predict_labels)]
     
     _, axs = plt.subplots(1, len(x), figsize=crop_size)
 
