@@ -1,7 +1,8 @@
 import torch
 import matplotlib.pyplot as plt
 from torch._C import Size
-
+from dataprocess import crop_size
+# import matplotlib.image as
 
 class DatasetModeError(Exception):
     def __init__(self, mode):
@@ -28,16 +29,24 @@ def second2clock(second):
     h, m = divmod(m, 60)
     return h, m, s
 
-def show_result(net, x, y):
-    true_labels = get_labels(y.numpy())
-    predict_labels = get_labels(torch.round(net(x)).numpy())
-    titles = [true + '\n' + pred for true, pred in zip(true_labels, predict_labels)]
-
-    _, axs = plt.subplots(1, len(x))
-
-    for ax, img, lbl in zip(axs, x, y):
-        
-
+def rgb2gray(img):
+    # img = img.convert("RGB")
+    r, g, b = img[0, :, :], img[1, :, :], img[2, :, :]
+    gray = 0.2989 * r + 0.5870 * g + 0.1140 * b
     
-    plt.imshow(x[0: 9], titles[0:9])
+    return gray
+
+def show_result(net, x, y, num=10):
+    true_labels = get_labels(y.cpu().detach().numpy())
+    predict_labels = get_labels(torch.round(net(x)).cpu().detach().numpy())
+    titles = [true + '\n' + pred for true, pred in zip(true_labels, predict_labels)]
+    
+    _, axs = plt.subplots(6, len(x)//6, figsize=crop_size)
+
+    for ax, img, lbl in zip(axs, x, titles):
+        ax.imshow(img.cpu().detach().numpy()[0])
+        ax.set_title(lbl)
+        ax.axes.get_xaxis().set_visible(False)
+        ax.axes.get_yaxis().set_visible(False)
+    # plt.imshow(x[0: num-1], titles[0: num-1])
     plt.show()

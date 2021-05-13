@@ -8,7 +8,7 @@ import time
 from tqdm import tqdm
 from config import *
 import os
-from utils import evaluate_accuracy, second2clock
+from utils import evaluate_accuracy, second2clock, show_result
 
 
 if torch.cuda.is_available():
@@ -101,7 +101,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
             format(epoch=epoch+1, loss=float('%.6f' % train_loss_sum), accuracy=float('%.6f' % train_acc_sum), \
                 average_loss=float('%.6f' %(train_loss_sum/(batch+1))), \
                     average_accuracy=float('%.6f' % (train_acc_sum/(batch+1)*100))))
-        
+
         if (epoch+1) % RECORD_EPOCH == 0:
             valid_acc = evaluate_accuracy(test_loader, net)
             print('Epoch: {epoch}, Valid accuracy: {valid:.6f}%'.format(epoch=epoch+1, valid=valid_acc*100))
@@ -115,4 +115,6 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     h, m, s = second2clock(end_time - start_time)
     print("Valid accuracy: {:.6f}".format(valid_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
 
+    test_img, test_label = iter(test_loader).__next__()
+    show_result(net, test_img[0:SHOW_PIC_NUM-1], test_label[0:SHOW_PIC_NUM-1])
 train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)
