@@ -45,6 +45,7 @@ def show_result(net, x, y, num=10):
 
     for ax, img, lbl in zip(axs, x, titles):
         ax.imshow(rgb2gray(img.cpu().detach().numpy()))
+        # ax.imshow(img.cpu().detach().resize((224, 224, 3)).numpy())
         ax.set_title(lbl)
         ax.axes.get_xaxis().set_visible(False)
         ax.axes.get_yaxis().set_visible(False)

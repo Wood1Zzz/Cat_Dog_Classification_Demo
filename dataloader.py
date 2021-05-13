@@ -22,7 +22,7 @@ class CatVsDogDataset(Dataset):
             self.file_name = os.listdir(file_path)[2500: 22500]
         elif self.mode == "test":
             self.file_name = os.listdir(file_path)[:2500] + os.listdir(file_path)[22500:]
-            print(type(self.file_name))
+            # print(type(self.file_name))
             # .extend(os.listdir(file_path)[22500:])
             # print(self.file_name) 
         else:
