@@ -6,7 +6,7 @@ BATCH_SIZE = 10
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
-EPOCH = 1
+EPOCH = 5
 RECORD_EPOCH = 5
 LR = 0.0001
 NET = '11'
@@ -14,7 +14,7 @@ ONE_HOT = False
 SHOW_PIC_NUM = 8
 
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "my_device"
+DEVICE = "kaggle"
 
 # Special config or dataset path for different device
 if DEVICE == "my_device":
