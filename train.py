@@ -116,5 +116,5 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     print("Valid accuracy: {:.6f}".format(valid_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
 
     test_img, test_label = iter(test_loader).__next__()
-    show_result(net, test_img[0:SHOW_PIC_NUM-1], test_label[0:SHOW_PIC_NUM-1])
+    show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM])
 train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)

@@ -11,10 +11,10 @@ RECORD_EPOCH = 5
 LR = 0.0001
 NET = '11'
 ONE_HOT = False
-SHOW_PIC_NUM = 10
+SHOW_PIC_NUM = 8
 
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "colab"
+DEVICE = "kaggle"
 
 # Special config or dataset path for different device
 if DEVICE == "my_device":
@@ -29,9 +29,13 @@ if DEVICE == "my_device":
         DATASET_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition'
         BATCH_SIZE = 50
 elif DEVICE == "kaggle":
-    TRAIN_PATH = '../input/dogs-vs-cats/train/train'
-    VALID_PATH = '../input/dogs-vs-cats/test/test'
+    TRAIN_PATH = '../input/dogs-vs-cats/train'
+    VALID_PATH = '../input/dogs-vs-cats/test'
     DATASET_PATH = '../input/dogs-vs-cats'
+    os.system(r'mv ../input/dogs-vs-cats/train/train/* ../input/dogs-vs-cats/train')
+    os.system(r'rm -rf ../input/dogs-vs-cats/train/train')
+    os.system(r'mv ../input/dogs-vs-cats/test/test/* ../input/dogs-vs-cats/test')
+    os.system(r'rm -rf ../input/dogs-vs-cats/test/test')
     BATCH_SIZE = 100
 elif DEVICE == "colab":
     os.system(r'pip install -U -q kaggle')
