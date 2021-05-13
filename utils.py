@@ -1,4 +1,7 @@
 import torch
+import matplotlib.pyplot as plt
+from torch._C import Size
+
 
 class DatasetModeError(Exception):
     def __init__(self, mode):
@@ -24,3 +27,17 @@ def second2clock(second):
     m, s = divmod(second, 60)
     h, m = divmod(m, 60)
     return h, m, s
+
+def show_result(net, x, y):
+    true_labels = get_labels(y.numpy())
+    predict_labels = get_labels(torch.round(net(x)).numpy())
+    titles = [true + '\n' + pred for true, pred in zip(true_labels, predict_labels)]
+
+    _, axs = plt.subplots(1, len(x))
+
+    for ax, img, lbl in zip(axs, x, y):
+        
+
+    
+    plt.imshow(x[0: 9], titles[0:9])
+    plt.show()

@@ -2,6 +2,7 @@
 from torch import nn
 from config import ONE_HOT
 
+
 class VGG(nn.Module):
     def __init__(self, name="11", one_hot=ONE_HOT):
         super(VGG, self).__init__()
@@ -106,7 +107,8 @@ class VGG(nn.Module):
         p += 1
 
         # define fc layer
-        self.fc = nn.Sequential(
+        if one_hot:
+            self.fc = nn.Sequential(
             nn.Linear(512*7*7, 4096),
             nn.ReLU(),
             nn.Dropout(0.5),
@@ -116,8 +118,22 @@ class VGG(nn.Module):
             nn.Linear(4096, 1000),
             nn.ReLU(),
             nn.Linear(1000, self.output),
+            nn.Softmax(),
             nn.Sigmoid()
         )
+        else:
+            self.fc = nn.Sequential(
+                nn.Linear(512*7*7, 4096),
+                nn.ReLU(),
+                nn.Dropout(0.5),
+                nn.Linear(4096, 4096),
+                nn.ReLU(),
+                nn.Dropout(0.5),
+                nn.Linear(4096, 1000),
+                nn.ReLU(),
+                nn.Linear(1000, self.output),
+                nn.Sigmoid()
+            )
 
     def forward(self, x):
         output = self.conv(x)

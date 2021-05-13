@@ -11,7 +11,6 @@ import os
 from utils import evaluate_accuracy, second2clock
 
 
-
 if torch.cuda.is_available():
     net = VGG(NET).cuda()
 else:
@@ -63,7 +62,10 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
         for batch, (x, y) in enumerate(tqdm(train_loader)):
             y_hat = net(x)
             # if batch_size > 1, use sum() to calculate per batch loss
-            loss = loss_func(y_hat, y)
+            if one_hot:
+                loss = loss_func(y_hat, y).sum()
+            else:
+                loss = loss_func(y_hat, y)
 
             # print("\t\tBatch #{0}/{1}".format(batch+1, len(train_loader)) + "Loss = %.6f"%float(loss))
 
