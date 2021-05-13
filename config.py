@@ -32,10 +32,10 @@ elif DEVICE == "kaggle":
     TRAIN_PATH = '../input/dogs-vs-cats/train'
     VALID_PATH = '../input/dogs-vs-cats/test'
     DATASET_PATH = '../input/dogs-vs-cats'
-    os.system(r'mv ../input/dogs-vs-cats/train/train/* ../input/dogs-vs-cats/train')
-    os.system(r'rm -rf ../input/dogs-vs-cats/train/train')
-    os.system(r'mv ../input/dogs-vs-cats/test/test/* ../input/dogs-vs-cats/test')
-    os.system(r'rm -rf ../input/dogs-vs-cats/test/test')
+    os.system(r'sudo mv ../input/dogs-vs-cats/train/train/* ../input/dogs-vs-cats/train')
+    os.system(r'sudo rm -rf ../input/dogs-vs-cats/train/train')
+    os.system(r'sudo mv ../input/dogs-vs-cats/test/test/* ../input/dogs-vs-cats/test')
+    os.system(r'sudo rm -rf ../input/dogs-vs-cats/test/test')
     BATCH_SIZE = 100
 elif DEVICE == "colab":
     os.system(r'pip install -U -q kaggle')
