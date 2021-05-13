@@ -1,11 +1,17 @@
-import torch
-import torchvision
 from torchvision import transforms
 
-class Data_process(object):
-    def __init__(self):
-        pass
-    def data_process_train(self):
-        TRANSFORM = transforms.Compose([
-            transforms.Resize((256, 256)),
-        ])
+
+mean = (0.485, 0.456, 0.406)
+std = (0.229, 0.224, 0.225)
+
+Transform_train = transforms.Compose([transforms.Resize((256, 256)),
+                                      transforms.RandomCrop((224, 224)),
+                                      transforms.ToTensor(),
+                                      transforms.Normalize(mean, std)
+                                      ])
+
+Transform_test = transforms.Compose([transforms.Resize((224, 224)),
+                                     transforms.ToTensor(),
+                                     transforms.Normalize(mean, std)
+                                     ])
+
