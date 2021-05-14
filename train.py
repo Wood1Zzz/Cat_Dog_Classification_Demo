@@ -10,8 +10,6 @@ from config import *
 import os
 from utils import evaluate_accuracy, second2clock, show_result
 
-if DEVICE in ["kaggle", "colab"]:
-    %matplotlib inline
 
 if torch.cuda.is_available():
     net = VGG(NET).cuda()
