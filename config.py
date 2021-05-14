@@ -14,7 +14,7 @@ ONE_HOT = False
 SHOW_PIC_NUM = 8
 
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "colab"
+DEVICE = "kaggle"
 
 # Special config or dataset path for different device
 if DEVICE == "my_device":
