@@ -33,6 +33,7 @@ parser.set_defaults(keep_latest=False)
 # 命令行解析
 args = parser.parse_args()
 
+
 DEVICE = args.device
 BATCH_SIZE = args.batch_size
 EPOCH = args.epoch
@@ -42,6 +43,9 @@ NET = args.vgg_net
 ONE_HOT = args.one_hot
 SHOW_PIC_NUM = args.show_picture_num
 DATASET_PATH = args.dataset_path
+
+VALID_PATH, TRAIN_PATH, VALID_PATH = set_path(DEVICE)
+# print(DATASET_PATH)
 
 if torch.cuda.is_available():
     net = VGG(NET).cuda()
@@ -57,7 +61,7 @@ else:
     loss_func = nn.BCELoss()
     optimizer = optim.RMSprop(net.parameters(), lr=LR, alpha=0.9)
 
-set_path(DEVICE)
+
 
 def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
 

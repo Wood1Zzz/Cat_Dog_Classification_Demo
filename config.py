@@ -2,7 +2,7 @@ import sys
 import os
 
 # Config
-BATCH_SIZE = 10
+BATCH_SIZE = 30
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
@@ -16,7 +16,7 @@ SHOW_PIC_NUM = 8
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
 DEVICE = "kaggle"
 
-def set_path(DEVICE):
+def set_path(DEVICE, dataset_path=None):
     global DATASET_PATH
     global BATCH_SIZE
     global TRAIN_PATH
@@ -27,17 +27,17 @@ def set_path(DEVICE):
             # TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
             # VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
             DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
-            BATCH_SIZE = 50
+            # BATCH_SIZE = 50
         elif sys.platform.startswith('linux'):
             # TRAIN_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition/train'
             # VALID_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition/test'
             DATASET_PATH = '/home/danzer/PycharmProject/Dataset/dogs-vs-cats-redux-kernels-edition'
-            BATCH_SIZE = 50
+            # BATCH_SIZE = 50
     elif DEVICE == "kaggle":
         TRAIN_PATH = '../input/dogs-vs-cats/train/train'
         VALID_PATH = '../input/dogs-vs-cats/test/test'
         DATASET_PATH = '../input/dogs-vs-cats'
-        BATCH_SIZE = 100
+        # BATCH_SIZE = 100
     elif DEVICE == "colab":
         os.system(r'pip install -U -q kaggle')
         os.system(r'mkdir -p ~/.kaggle')
@@ -57,6 +57,11 @@ def set_path(DEVICE):
         TRAIN_PATH = '/content/cat_dog_dataset/train'
         VALID_PATH = '/content/cat_dog_dataset/test'
         DATASET_PATH = '/content/cat_dog_dataset'
-        BATCH_SIZE = 80
-
-set_path(DEVICE)
+        # BATCH_SIZE = 80
+    elif dataset_path is not None:
+        DATASET_PATH = dataset_path
+        TRAIN_PATH = DATASET_PATH + '/train'
+        VALID_PATH = DATASET_PATH + '/test'
+    else:
+        pass
+    return VALID_PATH, TRAIN_PATH, VALID_PATH
