@@ -14,7 +14,7 @@ ONE_HOT = False
 SHOW_PIC_NUM = 8
 
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "kaggle"
+DEVICE = "my_device"
 
 def set_path(DEVICE):
     global DATASET_PATH
