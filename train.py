@@ -26,10 +26,10 @@ parser.add_argument('--batch_size', default=BATCH_SIZE, type=int, help='Batch si
 parser.add_argument('--epoch', default=EPOCH, type=int, help='Trainning epoch')
 parser.add_argument('--lr', default=LR, type=float, help='Learning rate')
 parser.add_argument('--record_epoch', default=RECORD_EPOCH, type=int, help='Record pth files how many epochs')
-parser.add_argument('--vgg_net', default=NET, type=str, help='Choose vgg11, vgg16 or vgg19 to train the model')
+parser.add_argument('--vgg_net', default=NET, type=str, help='Choose net to train the model, you can choose 11, 11-LRN, 13, 16, 16-1, 19')
 parser.add_argument('--one_hot', default=ONE_HOT, type=str2bool, help='Use one hot type to train or not')
 parser.add_argument('--show_picture_num', default=SHOW_PIC_NUM, type=int, help='During test period show how many picture')
-parser.add_argument('--dataset_path', default=DATASET_PATH, type=str, help='Dataset path not include train or test path')
+parser.add_argument('--dataset_path', default=DATASET_PATH, type=str, help='Dataset path, not include train or test path')
 
 # 设置默认参数不改变，否则修改为输入参数
 parser.set_defaults(keep_latest=False)
@@ -37,7 +37,15 @@ parser.set_defaults(keep_latest=False)
 # 命令行解析
 args = parser.parse_args()
 
-
+DEVICE = args.device
+BATCH_SIZE = args.batch_size
+EPOCH = args.epoch
+LR = args.lr
+RECORD_EPOCH = args.record_epoch
+NET = args.vgg_net
+ONE_HOT = args.one_hot
+SHOW_PIC_NUM = args.show_picture_num
+DATASET_PATH = args.dataset_path
 
 if torch.cuda.is_available():
     net = VGG(NET).cuda()

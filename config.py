@@ -2,7 +2,7 @@ import sys
 import os
 
 # Config
-BATCH_SIZE = 10
+# BATCH_SIZE = 10
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
@@ -14,7 +14,7 @@ ONE_HOT = False
 SHOW_PIC_NUM = 8
 
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
-DEVICE = "kaggle"
+DEVICE = "my_device"
 
 # Special config or dataset path for different device
 if DEVICE == "my_device":
@@ -53,3 +53,8 @@ elif DEVICE == "colab":
     VALID_PATH = '/content/cat_dog_dataset/test'
     DATASET_PATH = '/content/cat_dog_dataset'
     BATCH_SIZE = 80
+else:
+    BATCH_SIZE = 30
+    TRAIN_PATH = None
+    VALID_PATH = None
+    DATASET_PATH = None
