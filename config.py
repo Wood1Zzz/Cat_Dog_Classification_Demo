@@ -16,7 +16,7 @@ SHOW_PIC_NUM = 8
 # DEVICE CONFIG "my_device", 'colab', "kaggle", no recommand use "kaggle"
 DEVICE = "my_device"
 
-def set_path(DEVICE):
+def set_path(DEVICE, dataset_path=None):
     global DATASET_PATH
     global BATCH_SIZE
     global TRAIN_PATH
@@ -58,10 +58,10 @@ def set_path(DEVICE):
         VALID_PATH = '/content/cat_dog_dataset/test'
         DATASET_PATH = '/content/cat_dog_dataset'
         # BATCH_SIZE = 80
-    # elif dataset_path is not None:
-    #     DATASET_PATH = dataset_path
-    #     TRAIN_PATH = DATASET_PATH + '/train'
-    #     VALID_PATH = DATASET_PATH + '/test'
+    elif DEVICE not in ['my_device', 'kaggle', 'colab'] and dataset_path is not None:
+        DATASET_PATH = dataset_path
+        TRAIN_PATH = DATASET_PATH + '/train'
+        VALID_PATH = DATASET_PATH + '/test'
     else:
         pass
     return DATASET_PATH, TRAIN_PATH, VALID_PATH

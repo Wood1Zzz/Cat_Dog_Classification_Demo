@@ -69,6 +69,28 @@ class CatVsDogDataset(Dataset):
     def __len__(self):
         return len(self.file_name)
 
+class CatVsDogValid(Dataset):
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.file_name = os.listdir(file_path)
+    
+    def __getitem__(self, index):
+        if sys.platform.startswith('win'):
+            img = Image.open(self.file_path + '\\' + self.file_name[index])
+        elif sys.platform.startswith('linux'):
+            img = Image.open(self.file_path + '/' + self.file_name[index])
+        data = Transform_test(img)
+
+        img.close()
+        
+        if torch.cuda.is_available():
+            return data.cuda()
+        else:
+            return data
+                
+
+    def __len__(self):
+        return len(self.file_name)
 # cat_dog_dataset_test = CatVsDogDataset('G:\dogs-vs-cats-redux-kernels-edition\\train', mode="test", one_hot=False)
 # test_loader = Data(cat_dog_dataset_test, batch_size=8)
 # print(len(test_loader))

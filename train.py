@@ -8,7 +8,7 @@ import time
 from tqdm import tqdm
 from config import *
 import os
-from utils import evaluate_accuracy, second2clock, show_result
+from utils import evaluate_accuracy, second2clock, show_result, show_valid
 import argparse
 
 
@@ -17,7 +17,7 @@ def str2bool(arg):
 
 parser = argparse.ArgumentParser(description='Training config')
 
-parser.add_argument('--device', default=DEVICE, type=str, help='Use my device or colab or kaggle to train')
+parser.add_argument('--device', default=DEVICE, type=str, help='Use my device or colab or kaggle to train, you can choose kaggle, colab, my_device or other')
 parser.add_argument('--batch_size', default=BATCH_SIZE, type=int, help='Batch size for trainning')
 parser.add_argument('--epoch', default=EPOCH, type=int, help='Trainning epoch')
 parser.add_argument('--lr', default=LR, type=float, help='Learning rate')
@@ -94,6 +94,9 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True, num_workers=0)
     # test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True)
 
+    cat_dog_dataset_valid = dataloader.CatVsDogValid(VALID_PATH)
+    valid_loader = Data(cat_dog_dataset_valid, batch_size=batch_size, shuffle=True, num_workers=0)
+
     start_time = time.time()
     print("Net: VGG%s, Total epoch: %d, batch_size: %d, LR: %f, Device: %s"%(NET, epoch, batch_size, LR, DEVICE))
     time.sleep(0.1)
@@ -162,4 +165,6 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
 
     test_img, test_label = iter(test_loader).__next__()
     show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM])
+    # valid_img = iter(valid_loader).__next__()
+    # show_valid(net, valid_img)
 train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)
