@@ -2,7 +2,7 @@ import sys
 import os
 
 # Config
-# BATCH_SIZE = 10
+BATCH_SIZE = 10
 TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
 VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
 DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
