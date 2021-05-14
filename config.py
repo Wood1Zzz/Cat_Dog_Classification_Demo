@@ -59,4 +59,4 @@ def set_path(DEVICE):
         DATASET_PATH = '/content/cat_dog_dataset'
         BATCH_SIZE = 80
 
-# set_path(DEVICE)
+set_path(DEVICE)
