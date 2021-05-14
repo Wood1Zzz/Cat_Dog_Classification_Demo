@@ -26,6 +26,7 @@ parser.add_argument('--vgg_net', default=NET, type=str, help='Choose net to trai
 parser.add_argument('--one_hot', default=ONE_HOT, type=str2bool, help='Use one hot type to train or not')
 parser.add_argument('--show_picture_num', default=SHOW_PIC_NUM, type=int, help='During test period show how many picture')
 parser.add_argument('--dataset_path', default=DATASET_PATH, type=str, help='Dataset path, not include train or test path')
+parser.add_argument('--rgb', default=False, type=bool, help='Use rgb mode to show picture or not')
 
 # 设置默认参数不改变，否则修改为输入参数
 parser.set_defaults(keep_latest=False)
@@ -43,6 +44,7 @@ NET = args.vgg_net
 ONE_HOT = args.one_hot
 SHOW_PIC_NUM = args.show_picture_num
 DATASET_PATH = args.dataset_path
+RGB = args.rgb
 
 DATASET_PATH, TRAIN_PATH, VALID_PATH = set_path(DEVICE)
 # print(DATASET_PATH)
@@ -164,7 +166,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     print("Valid accuracy: {:.6f}".format(valid_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
 
     test_img, test_label = iter(test_loader).__next__()
-    show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM])
+    show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM], rgb=RGB)
     # valid_img = iter(valid_loader).__next__()
     # show_valid(net, valid_img)
 train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)

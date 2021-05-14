@@ -80,15 +80,14 @@ class CatVsDogValid(Dataset):
         elif sys.platform.startswith('linux'):
             img = Image.open(self.file_path + '/' + self.file_name[index])
         data = Transform_test(img)
-
-        img.close()
         
+        img.close()
+
         if torch.cuda.is_available():
             return data.cuda()
         else:
             return data
-                
-
+            
     def __len__(self):
         return len(self.file_name)
 # cat_dog_dataset_test = CatVsDogDataset('G:\dogs-vs-cats-redux-kernels-edition\\train', mode="test", one_hot=False)
