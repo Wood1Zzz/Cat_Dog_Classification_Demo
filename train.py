@@ -83,9 +83,11 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
         raise ValueError("Dataset can not be None")
 
     cat_dog_dataset = dataloader.CatVsDogDataset(TRAIN_PATH, mode="train", one_hot=one_hot)
-    train_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    # train_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    train_loader = Data(cat_dog_dataset, batch_size=batch_size, shuffle=True)
     cat_dog_dataset_test = dataloader.CatVsDogDataset(TRAIN_PATH, mode="test", one_hot=one_hot)
-    test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True, num_workers=0)
+    # test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True, num_workers=0)
+    test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True)
 
     start_time = time.time()
     print("Net: VGG%s, Total epoch: %d, batch_size: %d, LR: %f"%(NET, epoch, batch_size, LR))
