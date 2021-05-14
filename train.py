@@ -82,7 +82,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     elif DEVICE is "kaggle":
         TRAIN_PATH = '../input/dogs-vs-cats/train/train'
         VALID_PATH = '../input/dogs-vs-cats/test/test'
-        # DATASET_PATH = '../input/dogs-vs-cats'
+        DATASET_PATH = '../input/dogs-vs-cats'
     else:
         raise ValueError("Dataset can not be None")
 
