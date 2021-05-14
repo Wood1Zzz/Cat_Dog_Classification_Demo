@@ -11,10 +11,6 @@ import os
 from utils import evaluate_accuracy, second2clock, show_result
 import argparse
 
-TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
-VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
-DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
-
 
 def str2bool(arg):
     return arg.lower() in ("yes", "true", "t", "1")

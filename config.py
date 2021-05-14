@@ -53,8 +53,3 @@ elif DEVICE == "colab":
     VALID_PATH = '/content/cat_dog_dataset/test'
     DATASET_PATH = '/content/cat_dog_dataset'
     BATCH_SIZE = 80
-else:
-    BATCH_SIZE = 30
-    TRAIN_PATH = None
-    VALID_PATH = None
-    DATASET_PATH = None
