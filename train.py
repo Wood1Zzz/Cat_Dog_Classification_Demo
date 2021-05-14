@@ -9,6 +9,33 @@ from tqdm import tqdm
 from config import *
 import os
 from utils import evaluate_accuracy, second2clock, show_result
+import argparse
+
+TRAIN_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\train'
+VALID_PATH = 'G:\dogs-vs-cats-redux-kernels-edition\\test'
+DATASET_PATH = 'G:\dogs-vs-cats-redux-kernels-edition'
+
+
+def str2bool(arg):
+    return arg.lower() in ("yes", "true", "t", "1")
+
+parser = argparse.ArgumentParser(description='Training config')
+
+parser.add_argument('--device', default=DEVICE, type=str, help='Use my device or colab or kaggle to train')
+parser.add_argument('--batch_size', default=BATCH_SIZE, type=int, help='Batch size for trainning')
+parser.add_argument('--epoch', default=EPOCH, type=int, help='Trainning epoch')
+parser.add_argument('--lr', default=LR, type=float, help='Learning rate')
+parser.add_argument('--record_epoch', default=RECORD_EPOCH, type=int, help='Record pth files how many epochs')
+parser.add_argument('--vgg_net', default=NET, type=str, help='Choose vgg11, vgg16 or vgg19 to train the model')
+parser.add_argument('--one_hot', default=ONE_HOT, type=str2bool, help='Use one hot type to train or not')
+parser.add_argument('--show_picture_num', default=SHOW_PIC_NUM, type=int, help='During test period show how many picture')
+
+# 设置默认参数不改变，否则修改为输入参数
+parser.set_defaults(keep_latest=False)
+
+# 命令行解析
+args = parser.parse_args()
+
 
 
 if torch.cuda.is_available():
