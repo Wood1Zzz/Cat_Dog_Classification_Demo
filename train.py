@@ -25,7 +25,7 @@ parser.add_argument('--record_epoch', default=RECORD_EPOCH, type=int, help='Reco
 parser.add_argument('--vgg_net', default=NET, type=str, help='Choose net to train the model, you can choose 11, 11-LRN, 13, 16, 16-1, 19')
 parser.add_argument('--one_hot', default=ONE_HOT, type=str2bool, help='Use one hot type to train or not')
 parser.add_argument('--show_picture_num', default=SHOW_PIC_NUM, type=int, help='During test period show how many picture')
-parser.add_argument('--dataset_path', default=None, type=str, help='Dataset path, not include train or test path')
+parser.add_argument('--dataset_path', default=DATASET_PATH, type=str, help='Dataset path, not include train or test path')
 
 # 设置默认参数不改变，否则修改为输入参数
 parser.set_defaults(keep_latest=False)
@@ -44,7 +44,7 @@ ONE_HOT = args.one_hot
 SHOW_PIC_NUM = args.show_picture_num
 DATASET_PATH = args.dataset_path
 
-VALID_PATH, TRAIN_PATH, VALID_PATH = set_path(DEVICE)
+DATASET_PATH, TRAIN_PATH, VALID_PATH = set_path(DEVICE)
 # print(DATASET_PATH)
 
 if torch.cuda.is_available():
