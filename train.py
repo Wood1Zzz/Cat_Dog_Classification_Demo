@@ -57,6 +57,8 @@ else:
     loss_func = nn.BCELoss()
     optimizer = optim.RMSprop(net.parameters(), lr=LR, alpha=0.9)
 
+set_path(DEVICE)
+
 def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
 
     if one_hot:
@@ -75,7 +77,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
             VALID_PATH = dataset_path + '/test'
     elif DEVICE is "kaggle":
         TRAIN_PATH = '../input/dogs-vs-cats/train/train'
-        # VALID_PATH = '../input/dogs-vs-cats/test/test'
+        VALID_PATH = '../input/dogs-vs-cats/test/test'
         # DATASET_PATH = '../input/dogs-vs-cats'
     else:
         raise ValueError("Dataset can not be None")
