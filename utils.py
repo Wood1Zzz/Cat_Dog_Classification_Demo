@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from torch._C import Size
 from dataprocess import crop_size
 # import matplotlib.image as
+import pandas as pd
+
 
 class DatasetModeError(Exception):
     def __init__(self, mode):
@@ -56,19 +58,29 @@ def show_result(net, x, y, num=10, rgb=False):
     # plt.imshow(x[0: num-1], titles[0: num-1])
     plt.show()
 
-def show_valid(net, x, num=10):
+def show_valid(net, x, num=10, rgb=False):
     predict_labels = get_labels(torch.round(net(x)).cpu().detach().numpy())
-    titles = ["predict: " + pred for pred in zip(predict_labels)]
+    titles = ["predict: " + pred for pred in iter(predict_labels)]
     
-    _, axs = plt.subplots(1, len(x), figsize=crop_size)
+    _, axs = plt.subplots(1, len(x), figsize=(32, 32))
 
     for ax, img, lbl in zip(axs, x, titles):
-        # ax.imshow(rgb2gray(img.cpu().detach().numpy()))
-        ax.imshow(img.cpu().detach().permute(1, 2, 0).numpy())
+        if rgb:
+            ax.imshow(img.cpu().detach().permute(1, 2, 0).numpy())
+        else:
+            ax.imshow(rgb2gray(img.cpu().detach().numpy()))
         # ax.imshow(img.cpu().detach().resize((224, 224, 3)).numpy())
         ax.set_title(lbl)
         ax.axes.get_xaxis().set_visible(False)
         ax.axes.get_yaxis().set_visible(False)
     # plt.imshow(x[0: num-1], titles[0: num-1])
     plt.show()
+
+def creat_csv(net, valid_loader):
+    prediction = []
+    for i, (x) in enumerate(valid_loader):
+        y_hat = net(x)
+        prediction.append([i+1, torch.round(y_hat).cpu().detach().numpy()[0][0]])
+    submission = pd.DataFrame(prediction, columns=['id', 'label'])
+    submission.to_csv('submission'+'.csv', index=False)
 

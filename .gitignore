@@ -6,3 +6,6 @@ config.pyc
 dataloader.pyc 
 net.pyc
 utils.pyc 
+.vscode
+.VSCodeCounter
+submission.csv

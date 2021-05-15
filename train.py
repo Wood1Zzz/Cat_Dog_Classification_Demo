@@ -8,9 +8,9 @@ import time
 from tqdm import tqdm
 from config import *
 import os
-from utils import evaluate_accuracy, second2clock, show_result, show_valid
+from utils import creat_csv, evaluate_accuracy, second2clock, show_result, show_valid
 import argparse
-
+import pandas as pd
 
 def str2bool(arg):
     return arg.lower() in ("yes", "true", "t", "1")
@@ -64,7 +64,6 @@ else:
     optimizer = optim.RMSprop(net.parameters(), lr=LR, alpha=0.9)
 
 
-
 def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
 
     if one_hot:
@@ -97,7 +96,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     # test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True)
 
     cat_dog_dataset_valid = dataloader.CatVsDogValid(VALID_PATH)
-    valid_loader = Data(cat_dog_dataset_valid, batch_size=batch_size, shuffle=True, num_workers=0)
+    valid_loader = Data(cat_dog_dataset_valid, batch_size=1, shuffle=False, num_workers=0)
 
     start_time = time.time()
     print("Net: VGG%s, Total epoch: %d, batch_size: %d, LR: %f, Device: %s"%(NET, epoch, batch_size, LR, DEVICE))
@@ -153,20 +152,22 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
                     average_accuracy=float('%.6f' % (train_acc_sum/(batch+1)*100))))
 
         if (epoch+1) % RECORD_EPOCH == 0:
-            valid_acc = evaluate_accuracy(test_loader, net)
-            print('Epoch: {epoch}, Valid accuracy: {valid:.6f}%'.format(epoch=epoch+1, valid=valid_acc*100))
+            test_acc = evaluate_accuracy(test_loader, net)
+            print('Epoch: {epoch}, Valid accuracy: {valid:.6f}%'.format(epoch=epoch+1, valid=test_acc*100))
 
     end_time = time.time()
     h, m, s = second2clock(end_time - start_time)
     print("Total trainning time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
     start_time = time.time()
-    valid_acc = evaluate_accuracy(test_loader, net)
+    test_acc = evaluate_accuracy(test_loader, net)
     end_time = time.time()
     h, m, s = second2clock(end_time - start_time)
-    print("Valid accuracy: {:.6f}".format(valid_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
+    print("Test accuracy: {:.6f}".format(test_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
 
     test_img, test_label = iter(test_loader).__next__()
     show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM], rgb=RGB)
+
     # valid_img = iter(valid_loader).__next__()
-    # show_valid(net, valid_img)
+    # show_valid(net, valid_img[0:SHOW_PIC_NUM], rgb=RGB)
+    creat_csv(net, valid_loader)
 train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)
