@@ -80,7 +80,8 @@ def creat_csv(net, valid_loader):
     prediction = []
     for i, (x) in enumerate(valid_loader):
         y_hat = net(x)
-        prediction.append([i+1, torch.round(y_hat).cpu().detach().numpy()[0][0]])
+        # prediction.append([i+1, torch.round(y_hat).cpu().detach().numpy()[0][0]])
+        prediction.append([i+1, float(y_hat.cpu().detach().numpy()[0][0])])
     submission = pd.DataFrame(prediction, columns=['id', 'label'])
     submission.to_csv('submission'+'.csv', index=False)
 

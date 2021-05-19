@@ -164,10 +164,12 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     h, m, s = second2clock(end_time - start_time)
     print("Test accuracy: {:.6f}".format(test_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
 
-    test_img, test_label = iter(test_loader).__next__()
-    show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM], rgb=RGB)
+    # test_img, test_label = iter(test_loader).__next__()
+    # show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM], rgb=RGB)
 
     # valid_img = iter(valid_loader).__next__()
     # show_valid(net, valid_img[0:SHOW_PIC_NUM], rgb=RGB)
+    
+    # show_valid(net, valid_img[0:100], rgb=RGB)
     creat_csv(net, valid_loader)
 train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)
