@@ -28,6 +28,7 @@ parser.add_argument('--show_picture_num', default=SHOW_PIC_NUM, type=int, help='
 parser.add_argument('--dataset_path', default=DATASET_PATH, type=str, help='Dataset path, not include train or test path')
 parser.add_argument('--rgb', default=False, type=bool, help='Use rgb mode to show picture or not')
 parser.add_argument('--csv', default=False, type=bool, help='Create csv submission file or not')
+parser.add_argument('--show_valid', default=False, type=bool, help='Can not show test and valid at same time on kaggle')
 
 # 设置默认参数不改变，否则修改为输入参数
 parser.set_defaults(keep_latest=False)
@@ -47,6 +48,7 @@ SHOW_PIC_NUM = args.show_picture_num
 DATASET_PATH = args.dataset_path
 RGB = args.rgb
 CSV = args.csv
+SHOW_VALID_PIC = args.show_valid
 
 
 DATASET_PATH, TRAIN_PATH, VALID_PATH = set_path(DEVICE)
@@ -166,12 +168,14 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     end_time = time.time()
     h, m, s = second2clock(end_time - start_time)
     print("Test accuracy: {:.6f}".format(test_acc*100) + "%, Eval time: " + "%d hours %02d mins %.2f seconds" % (h, m, s))
-
+    
     test_img, test_label = iter(test_loader).__next__()
     show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM], rgb=RGB)
 
-    # valid_img = iter(valid_loader).__next__()
-    # show_valid(net, valid_img[0:SHOW_PIC_NUM], rgb=RGB)
+    if SHOW_VALID_PIC:
+        valid_img = iter(valid_loader).__next__()
+        show_valid(net, valid_img[0:SHOW_PIC_NUM], rgb=RGB)
+        
     if CSV:
         valid_loader = Data(cat_dog_dataset_valid, batch_size=1, shuffle=False, num_workers=0)
         creat_csv(net, valid_loader)
