@@ -100,7 +100,7 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     # test_loader = Data(cat_dog_dataset_test, batch_size=batch_size, shuffle=True)
 
     cat_dog_dataset_valid = dataloader.CatVsDogValid(VALID_PATH)
-    valid_loader = Data(cat_dog_dataset_valid, batch_size=1, shuffle=False, num_workers=0)
+    valid_loader = Data(cat_dog_dataset_valid, batch_size=batch_size, shuffle=True, num_workers=0)
 
     start_time = time.time()
     print("Net: VGG%s, Total epoch: %d, Batch_size: %d, LR: %f, Device: %s"%(NET, epoch, batch_size, LR, DEVICE))
@@ -171,10 +171,9 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     test_img, test_label = iter(test_loader).__next__()
     show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM], rgb=RGB)
 
-    if SHOW_VALID_PIC:
-        valid_loader = Data(cat_dog_dataset_valid, batch_size=BATCH_SIZE, shuffle=True, num_workers=0)
     valid_img = iter(valid_loader).__next__()
     show_valid(net, valid_img[0:SHOW_PIC_NUM], rgb=RGB)
     if CSV:
+        valid_loader = Data(cat_dog_dataset_valid, batch_size=1, shuffle=False, num_workers=0)
         creat_csv(net, valid_loader)
 train(epoch=EPOCH, batch_size=BATCH_SIZE, dataset_path=DATASET_PATH, one_hot=ONE_HOT)
