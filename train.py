@@ -47,7 +47,7 @@ SHOW_PIC_NUM = args.show_picture_num
 DATASET_PATH = args.dataset_path
 RGB = args.rgb
 CSV = args.csv
-SHOW_VALID_PIC = args.show_valid
+
 
 DATASET_PATH, TRAIN_PATH, VALID_PATH = set_path(DEVICE)
 # print(DATASET_PATH)
@@ -170,8 +170,8 @@ def train(epoch=10, batch_size=10, dataset_path=None, one_hot=False):
     test_img, test_label = iter(test_loader).__next__()
     show_result(net, test_img[0:SHOW_PIC_NUM], test_label[0:SHOW_PIC_NUM], rgb=RGB)
 
-    valid_img = iter(valid_loader).__next__()
-    show_valid(net, valid_img[0:SHOW_PIC_NUM], rgb=RGB)
+    # valid_img = iter(valid_loader).__next__()
+    # show_valid(net, valid_img[0:SHOW_PIC_NUM], rgb=RGB)
     if CSV:
         valid_loader = Data(cat_dog_dataset_valid, batch_size=1, shuffle=False, num_workers=0)
         creat_csv(net, valid_loader)
