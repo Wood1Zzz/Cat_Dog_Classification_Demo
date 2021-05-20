@@ -28,7 +28,6 @@ parser.add_argument('--show_picture_num', default=SHOW_PIC_NUM, type=int, help='
 parser.add_argument('--dataset_path', default=DATASET_PATH, type=str, help='Dataset path, not include train or test path')
 parser.add_argument('--rgb', default=False, type=bool, help='Use rgb mode to show picture or not')
 parser.add_argument('--csv', default=False, type=bool, help='Create csv submission file or not')
-parser.add_argument('--show_valid', default=True, type=bool, help='Show valid data or not')
 
 # 设置默认参数不改变，否则修改为输入参数
 parser.set_defaults(keep_latest=False)
