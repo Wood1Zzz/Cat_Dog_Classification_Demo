@@ -61,5 +61,5 @@ On kaggle, can not show test picture and valid picture at same time, default sho
 ![Result file](./Kaggle_show.png)
 
 ### Reference
-https://magolor.cn/2020/01/14/2020-01-14-blog-01/#vgg%E7%BB%93%E6%9E%84
-http://tangshusen.me/Dive-into-DL-PyTorch/#/
+- https://magolor.cn/2020/01/14/2020-01-14-blog-01/#vgg%E7%BB%93%E6%9E%84
+- http://tangshusen.me/Dive-into-DL-PyTorch/#/
